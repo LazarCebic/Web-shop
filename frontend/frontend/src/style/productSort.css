@@ -1,0 +1,25 @@
+.product-sort {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.product-sort label {
+    font-size: 15px;
+    color: #333;
+}
+
+.product-sort select {
+    padding: 6px 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.product-sort select:hover {
+    border-color: #888;
+}
