@@ -12,15 +12,13 @@ const PaymentCancelledPage = () => {
         const cancelOrder = async () => {
             if (!orderId) { setCancelling(false); return; }
             try {
-                // dohvatamo porudzbinu da dobijemo ID-eve svih stavki
                 const response = await ApiService.getOrderById(orderId);
                 const items = response.order?.orderItemList || [];
-                // otkazujemo svaku stavku — backend automatski vraca kolicinu na stanje
                 await Promise.all(
                     items.map(item => ApiService.updateOrderitemStatus(item.id, 'CANCELLED'))
                 );
             } catch (e) {
-                // ako nije moglo da se otkaže, ne prikazujemo grešku korisniku
+            
             } finally {
                 setCancelling(false);
             }

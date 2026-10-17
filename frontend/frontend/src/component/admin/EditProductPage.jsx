@@ -14,6 +14,7 @@ const EditProductPage = () => {
     const [message, setMessage] = useState('');
     const [price, setPrice] = useState('');
     const [stockQuantity, setStockQuantity] = useState('');
+    const [size, setSize] = useState('');
     const [imageUrl, setImageUrl] = useState(null);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ const EditProductPage = () => {
                 setDescription(response.product.description);
                 setPrice(response.product.price);
                 setStockQuantity(response.product.stockQuantity ?? '');
+                setSize(response.product.size ?? '');
                 setCategoryId(response.product.category?.id || '');
                 setImageUrl(response.product.imageUrl);
             })
@@ -69,6 +71,7 @@ const EditProductPage = () => {
             formData.append('description', description);
             formData.append('price', price);
             formData.append('stockQuantity', stockQuantity);
+            formData.append('size', size.trim());
 
             const response = await ApiService.updateProduct(formData);
             if (response.status === 200) {
@@ -124,6 +127,11 @@ const EditProductPage = () => {
                 step="1"
                 onChange={(e)=> setStockQuantity(e.target.value)} />
                 {errors.stockQuantity && <span className="field-error">{errors.stockQuantity}</span>}
+
+                <input type="text"
+                placeholder="Veličina (npr. M, 42, 32) — samo za odeću/obuću"
+                value={size}
+                onChange={(e)=> setSize(e.target.value)} />
 
                 <button type="submit">Sačuvaj izmene</button>
         </form>

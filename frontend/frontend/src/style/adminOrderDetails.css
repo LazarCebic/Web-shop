@@ -1,58 +1,94 @@
-.order-details-page{
-    padding: 20px;
-    width: 50%;
-    margin: auto;
-    margin-bottom: 100px;
-}
-.order-details-page h2{
-    text-align: center;
-    font-weight: 700;
-}
-.message{
-    text-align: center;
-    margin-bottom: 20px;
-}
-.order-item-details{
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin-bottom: 20px;
+.order-details-page {
+    padding: 0;
+    max-width: 780px;
+    margin: 0 auto 100px auto;
 }
 
-.info, .status-change{
-    margin-bottom: 20px;
+.order-details-page h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
-.info p{
+
+.order-details-page h3 {
+    font-size: 0.95rem;
+    margin: 20px 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-hover);
+}
+
+.message {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--success-text);
+    background: var(--success-bg);
+    border: 1px solid rgba(88, 168, 119, 0.3);
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.order-item-details {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    box-shadow: var(--shadow-sm);
+    padding: 22px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.info, .status-change {
+    margin-bottom: 0;
+}
+
+.info h3 {
+    margin-top: 0;
+}
+
+.info p {
     margin: 5px 0;
-}
-.status-option{
-    padding: 10px;
-}
-.update-status-button{
-    background-color: #f68b1e;
-    color: #fff;
-    margin-left: 10px;
-    padding: 10px;
-    font-weight: 800;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-}
-.update-status-button:hover{
-    background-color: #b77029;
+    color: var(--text);
 }
 
+.status-change {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
+.status-change h4 {
+    margin: 0;
+    width: 100%;
+    font-size: 0.95rem;
+}
 
+.status-option {
+    padding: 10px 14px;
+    font-size: 14px;
+}
 
+.update-status-button {
+    background-color: var(--accent);
+    color: var(--on-accent);
+    margin-left: 0;
+    padding: 11px 20px;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color 0.2s var(--ease);
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.update-status-button:hover {
+    background-color: var(--accent-hover);
+}

@@ -44,6 +44,13 @@ const ProductList = ({products}) => {
                                 <img src={product.imageUrl} alt={product.name} className="product-image" />
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
+                                {product.averageRating != null && (
+                                    <span className="product-rating-badge">
+                                        {'★'.repeat(Math.round(product.averageRating))}{'☆'.repeat(5 - Math.round(product.averageRating))}
+                                        {' '}({product.reviewCount})
+                                    </span>
+                                )}
+                                {product.size && <span className="product-size-badge">Veličina: {product.size}</span>}
                                 <span>{product.price.toLocaleString('sr-RS')} RSD</span>
                             </Link>
 

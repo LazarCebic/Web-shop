@@ -23,6 +23,8 @@ public class Product {
     @Column(name = "stock_quantity")
     private Integer stockQuantity;
 
+    private String size;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;

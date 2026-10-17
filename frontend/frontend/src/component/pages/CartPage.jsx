@@ -54,11 +54,9 @@ const CartPage = () => {
             if (response.status === 200) {
                 const orderId = response.order?.id;
 
-                // odmah pokrecemo Stripe Checkout Session za upravo kreiranu porudzbinu
+                
                 const checkoutResponse = await ApiService.createCheckoutSession(orderId);
                 if (checkoutResponse.status === 200 && checkoutResponse.message) {
-                    // korpu brisemo SAMO na stranici uspeha, ne ovde
-                    // jer korisnik moze da odustane od placanja i vrati se
                     sessionStorage.setItem('pendingOrderId', orderId);
                     window.location.href = checkoutResponse.message;
                 } else {

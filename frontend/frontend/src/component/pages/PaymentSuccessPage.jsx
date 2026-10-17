@@ -12,7 +12,6 @@ const PaymentSuccessPage = () => {
     const { dispatch } = useCart();
 
     useEffect(() => {
-        // brisemo korpu tek ovde — korisnik je zaista platio
         dispatch({ type: 'CLEAR_CART' });
         sessionStorage.removeItem('pendingOrderId');
 
@@ -23,7 +22,7 @@ const PaymentSuccessPage = () => {
                     setOrder(response.order);
                 }
             } catch (error) {
-                // ako porudzbina ne moze da se ucita, i dalje prikazujemo poruku o uspehu
+                
             } finally {
                 setLoading(false);
             }

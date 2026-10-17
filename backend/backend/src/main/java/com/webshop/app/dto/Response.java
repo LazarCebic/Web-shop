@@ -43,4 +43,8 @@ public class Response {
 
     private PaymentDto payment;
     private List<PaymentDto> paymentList;
+
+    private ReviewDto review;
+    private List<ReviewDto> reviewList;
+    private Double averageRating;
 }

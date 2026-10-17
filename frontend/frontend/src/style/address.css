@@ -1,54 +1,82 @@
-.address-page{
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 1 0 10p rgba(0, 0, 0, 0.1);
+.address-page {
+    max-width: 620px;
+    margin: 24px auto 60px auto;
+    padding: 40px 36px;
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
 }
 
-.address-page h2{
+.address-page h2 {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-bottom: 28px;
+    font-size: 1.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
-.address-page form{
+
+.address-page form {
     display: flex;
     flex-direction: column;
 }
-.address-page label{
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-.address-page input{
-    padding: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    width: 99%;
-}
-.address-page button{
-    padding: 10px 20px;
-    background-color: #f68b1e;
-    color: white;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-.address-page button:hover{
-    background-color: #8c4d0e;
+
+.address-page label {
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
 }
 
-.error-message{
-    color: red;
+.address-page input {
+    padding: 12px 14px;
+    margin: 8px 0 18px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.address-page button {
+    padding: 14px 20px;
+    background-color: var(--accent);
+    color: var(--on-accent);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    transition: background-color 0.2s var(--ease), transform 0.15s var(--ease);
+}
+
+.address-page button:hover {
+    background-color: var(--accent-hover);
+}
+
+.address-page button:active {
+    transform: scale(0.99);
+}
+
+.error-message {
+    color: var(--danger-text);
     margin-bottom: 20px;
     text-align: center;
+    font-weight: 600;
 }
+
 .field-error {
-    color: #c62828;
-    font-size: 13px;
+    color: var(--danger-text);
+    font-size: 12.5px;
     display: block;
-    margin: -8px 0 8px 0;
+    margin: -12px 0 12px 0;
+}
+
+@media (max-width: 480px) {
+    .address-page {
+        padding: 28px 20px;
+    }
 }

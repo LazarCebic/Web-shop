@@ -70,11 +70,7 @@ public class PaymentController {
         }
     }
 
-    /**
-     * Stripe poziva ovaj endpoint direktno (nije autentifikovan JWT-om, vec
-     * potpisom u "Stripe-Signature" headeru koji se verifikuje ispod).
-     * Ruta /payment/webhook je explicitno postavljena kao permitAll u SecurityConfig.
-     */
+   
     @PostMapping("/payment/webhook")
     public ResponseEntity<String> handleStripeWebhook(
             @RequestBody String payload,
@@ -102,7 +98,6 @@ public class PaymentController {
                     payment.setStripePaymentIntentId(paymentIntentId);
                     paymentRepo.save(payment);
 
-                    // azuriramo status porudzbine na CONFIRMED nakon uspjesne uplate
                     Order order = payment.getOrder();
                     if (order != null) {
                         order.setStatus(OrderStatus.CONFIRMED);

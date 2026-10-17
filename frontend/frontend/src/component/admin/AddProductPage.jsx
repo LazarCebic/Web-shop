@@ -13,6 +13,7 @@ const AddProductPage = () => {
     const [message, setMessage] = useState('');
     const [price, setPrice] = useState('');
     const [stockQuantity, setStockQuantity] = useState('');
+    const [size, setSize] = useState('');
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
@@ -54,6 +55,7 @@ const AddProductPage = () => {
             formData.append('description', description);
             formData.append('price', price);
             formData.append('stockQuantity', stockQuantity);
+            if (size.trim()) formData.append('size', size.trim());
 
             const response = await ApiService.addProduct(formData);
             if (response.status === 200) {
@@ -112,6 +114,11 @@ const AddProductPage = () => {
                 step="1"
                 onChange={(e)=> setStockQuantity(e.target.value)} />
                 {errors.stockQuantity && <span className="field-error">{errors.stockQuantity}</span>}
+
+                <input type="text"
+                placeholder="Veličina (npr. M, 42, 32) — samo za odeću/obuću"
+                value={size}
+                onChange={(e)=> setSize(e.target.value)} />
 
                 <button type="submit">Dodaj proizvod</button>
             </form>

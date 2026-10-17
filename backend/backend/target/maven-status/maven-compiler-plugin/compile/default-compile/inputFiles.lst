@@ -6,6 +6,7 @@ C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\c
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\controller\OrderItemController.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\controller\PaymentController.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\controller\ProductController.java
+C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\controller\ReviewController.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\controller\UserController.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\dto\AddressDto.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\dto\CategoryDto.java
@@ -17,6 +18,7 @@ C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\d
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\dto\PaymentDto.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\dto\ProductDto.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\dto\Response.java
+C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\dto\ReviewDto.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\dto\UserDto.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\entity\Address.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\entity\Category.java
@@ -39,6 +41,7 @@ C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\r
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\repository\OrderRepo.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\repository\PaymentRepo.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\repository\ProductRepo.java
+C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\repository\ReviewRepo.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\repository\UserRepo.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\security\AuthUser.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\security\CorsConfig.java
@@ -50,11 +53,13 @@ C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\s
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\impl\CategoryServiceImpl.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\impl\OrderItemServiceImpl.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\impl\ProductServiceImpl.java
+C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\impl\ReviewServiceImpl.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\impl\UserServiceImpl.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\interf\AddressService.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\interf\CategoryService.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\interf\OrderItemService.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\interf\ProductService.java
+C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\interf\ReviewService.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\interf\UserService.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\LocalFileStorageService.java
 C:\Users\user\Downloads\Web shop\backend\backend\src\main\java\com\webshop\app\service\StripeService.java

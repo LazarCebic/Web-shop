@@ -19,8 +19,7 @@ public class StripeConfig {
     public void init() throws Exception {
         Stripe.apiKey = stripeSecretKey;
 
-        // Java's built-in truststore often misses CAs that Windows already trusts.
-        // Loading the Windows certificate store fixes PKIX errors for outgoing HTTPS calls (e.g. Stripe).
+        
         KeyStore windowsStore = KeyStore.getInstance("Windows-ROOT");
         windowsStore.load(null, null);
 

@@ -187,6 +187,27 @@ export default class ApiService {
 
 
 
+    /**REVIEWS */
+    static async createReview(productId, rating, content) {
+        const response = await axios.post(`${this.BASE_URL}/review/create`, {}, {
+            headers: this.getHeader(),
+            params: { productId, rating, content }
+        })
+        return response.data;
+    }
+
+    static async getReviewsByProduct(productId) {
+        const response = await axios.get(`${this.BASE_URL}/review/product/${productId}`)
+        return response.data;
+    }
+
+    static async deleteReview(reviewId) {
+        const response = await axios.delete(`${this.BASE_URL}/review/delete/${reviewId}`, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
     /**ADDRESS */
     static async saveAddress(body) {
         const response = await axios.post(`${this.BASE_URL}/address/save`, body, {

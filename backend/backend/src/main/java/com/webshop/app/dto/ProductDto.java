@@ -20,5 +20,8 @@ public class ProductDto {
     private BigDecimal price;
     private Integer stockQuantity;
     private String imageUrl;
+    private String size;
     private CategoryDto category;
+    private Double averageRating;
+    private Long reviewCount;
 }

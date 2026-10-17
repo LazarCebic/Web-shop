@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/category/**", "/product/**", "/images/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/category/**", "/product/**", "/images/**", "/review/**").permitAll()
                         .requestMatchers("/payment/webhook").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager-> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

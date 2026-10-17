@@ -70,10 +70,28 @@ public class EntityDtoMapper {
         productDto.setPrice(product.getPrice());
         productDto.setStockQuantity(product.getStockQuantity());
         productDto.setImageUrl(product.getImageUrl());
+        productDto.setSize(product.getSize());
         if (product.getCategory() != null) {
             productDto.setCategory(mapCategoryToDtoBasic(product.getCategory()));
         }
         return productDto;
+    }
+
+    //Review to DTO Basic
+    public ReviewDto mapReviewToDto(Review review){
+        ReviewDto reviewDto = new ReviewDto();
+        reviewDto.setId(review.getId());
+        reviewDto.setRating(review.getRating());
+        reviewDto.setContent(review.getContent());
+        reviewDto.setCreatedAt(review.getCreatedAt());
+        if (review.getUser() != null) {
+            reviewDto.setUserId(review.getUser().getId());
+            reviewDto.setUserName(review.getUser().getName());
+        }
+        if (review.getProduct() != null) {
+            reviewDto.setProductId(review.getProduct().getId());
+        }
+        return reviewDto;
     }
 
     public UserDto mapUserToDtoPlusAddress(User user){

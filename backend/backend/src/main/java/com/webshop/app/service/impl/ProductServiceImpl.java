@@ -8,6 +8,7 @@ import com.webshop.app.exception.NotFoundException;
 import com.webshop.app.mapper.EntityDtoMapper;
 import com.webshop.app.repository.CategoryRepo;
 import com.webshop.app.repository.ProductRepo;
+import com.webshop.app.repository.ReviewRepo;
 import com.webshop.app.service.LocalFileStorageService;
 import com.webshop.app.service.interf.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +30,19 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryRepo categoryRepo;
     private final EntityDtoMapper entityDtoMapper;
     private final LocalFileStorageService fileStorageService;
+    private final ReviewRepo reviewRepo;
+
+    private ProductDto toDtoWithReviewStats(Product product) {
+        ProductDto dto = entityDtoMapper.mapProductToDtoBasic(product);
+        dto.setAverageRating(reviewRepo.findAverageRatingByProductId(product.getId()));
+        dto.setReviewCount(reviewRepo.countByProductId(product.getId()));
+        return dto;
+    }
 
 
 
     @Override
-    public Response createProduct(Long categoryId, MultipartFile image, String name, String description, BigDecimal price, Integer stockQuantity) {
+    public Response createProduct(Long categoryId, MultipartFile image, String name, String description, BigDecimal price, Integer stockQuantity, String size) {
         Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new NotFoundException("Category not found"));
         String productImageUrl = fileStorageService.saveImageToS3(image);
 
@@ -44,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
         product.setDescription(description);
         product.setImageUrl(productImageUrl);
         product.setStockQuantity(stockQuantity != null ? stockQuantity : 0);
+        product.setSize(size != null && !size.isBlank() ? size : null);
 
         productRepo.save(product);
         return Response.builder()
@@ -53,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Response updateProduct(Long productId, Long categoryId, MultipartFile image, String name, String description, BigDecimal price, Integer stockQuantity) {
+    public Response updateProduct(Long productId, Long categoryId, MultipartFile image, String name, String description, BigDecimal price, Integer stockQuantity, String size) {
         Product product = productRepo.findById(productId).orElseThrow(()-> new NotFoundException("Product Not Found"));
 
         Category category = null;
@@ -72,6 +82,7 @@ public class ProductServiceImpl implements ProductService {
         if (description != null) product.setDescription(description);
         if (productImageUrl != null) product.setImageUrl(productImageUrl);
         if (stockQuantity != null) product.setStockQuantity(stockQuantity);
+        if (size != null) product.setSize(size.isBlank() ? null : size);
 
         productRepo.save(product);
         return Response.builder()
@@ -95,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Response getProductById(Long productId) {
         Product product = productRepo.findById(productId).orElseThrow(()-> new NotFoundException("Product Not Found"));
-        ProductDto productDto = entityDtoMapper.mapProductToDtoBasic(product);
+        ProductDto productDto = toDtoWithReviewStats(product);
 
         return Response.builder()
                 .status(200)
@@ -107,7 +118,7 @@ public class ProductServiceImpl implements ProductService {
     public Response getAllProducts() {
         List<ProductDto> productList = productRepo.findAll(Sort.by(Sort.Direction.DESC, "id"))
                 .stream()
-                .map(entityDtoMapper::mapProductToDtoBasic)
+                .map(this::toDtoWithReviewStats)
                 .collect(Collectors.toList());
 
         return Response.builder()
@@ -124,7 +135,7 @@ public class ProductServiceImpl implements ProductService {
             throw new NotFoundException("No Products found for this category");
         }
         List<ProductDto> productDtoList = products.stream()
-                .map(entityDtoMapper::mapProductToDtoBasic)
+                .map(this::toDtoWithReviewStats)
                 .collect(Collectors.toList());
 
         return Response.builder()
@@ -142,7 +153,7 @@ public class ProductServiceImpl implements ProductService {
             throw new NotFoundException("No Products Found");
         }
         List<ProductDto> productDtoList = products.stream()
-                .map(entityDtoMapper::mapProductToDtoBasic)
+                .map(this::toDtoWithReviewStats)
                 .collect(Collectors.toList());
 
 

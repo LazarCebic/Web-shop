@@ -13,19 +13,72 @@ const ProductDetailsPage = () => {
     const [stockMessage, setStockMessage] = useState('');
     const [pendingQty, setPendingQty] = useState(null); // null = nije odabrano, broj = bira se
 
+    const [reviews, setReviews] = useState([]);
+    const [averageRating, setAverageRating] = useState(null);
+    const [currentUserId, setCurrentUserId] = useState(null);
+    const [reviewRating, setReviewRating] = useState('5');
+    const [reviewContent, setReviewContent] = useState('');
+    const [reviewMessage, setReviewMessage] = useState('');
+    const [reviewError, setReviewError] = useState('');
+
+    const isAuthenticated = ApiService.isAuthenticated();
+    const isAdmin = ApiService.isAdmin();
+
     const cartItem = product ? cart.find(item => item.id === product.id) : null;
 
     useEffect(()=>{
         fetchProduct();
+        fetchReviews();
+        if (isAuthenticated) {
+            ApiService.getLoggedInUserInfo()
+                .then(res => setCurrentUserId(res.user?.id))
+                .catch(() => {});
+        }
     }, [productId]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchProduct = async () => {
         try {
             const response = await ApiService.getProductById(productId);
             setProduct(response.product);
-            
+
         } catch (error) {
             console.log(error.message || error)
+        }
+    }
+
+    const fetchReviews = async () => {
+        try {
+            const response = await ApiService.getReviewsByProduct(productId);
+            setReviews(response.reviewList || []);
+            setAverageRating(response.averageRating || null);
+        } catch (error) {
+            console.log(error.message || error)
+        }
+    }
+
+    const handleReviewSubmit = async (e) => {
+        e.preventDefault();
+        setReviewMessage('');
+        setReviewError('');
+        try {
+            await ApiService.createReview(productId, Number(reviewRating), reviewContent);
+            setReviewContent('');
+            setReviewRating('5');
+            setReviewMessage('Hvala na recenziji!');
+            fetchReviews();
+        } catch (error) {
+            setReviewError(error.response?.data?.message || error.message || 'Greška pri slanju recenzije');
+        }
+    }
+
+    const handleReviewDelete = async (reviewId) => {
+        const confirmed = window.confirm("Da li ste sigurni da želite da obrišete ovu recenziju?");
+        if (!confirmed) return;
+        try {
+            await ApiService.deleteReview(reviewId);
+            fetchReviews();
+        } catch (error) {
+            setReviewError(error.response?.data?.message || error.message || 'Greška pri brisanju recenzije');
         }
     }
 
@@ -85,10 +138,18 @@ const ProductDetailsPage = () => {
     }
 
     return(
+        <>
         <div className="product-detail">
             <img src={product?.imageUrl} alt={product?.name} />
             <h1>{product?.name}</h1>
             <p>{product?.description}</p>
+            {averageRating != null && (
+                <span className="product-rating-badge">
+                    {'★'.repeat(Math.round(averageRating))}{'☆'.repeat(5 - Math.round(averageRating))}
+                    {' '}{averageRating.toFixed(1)} ({reviews.length})
+                </span>
+            )}
+            {product.size && <span className="product-size-badge">Veličina: {product.size}</span>}
             <span>{product.price.toLocaleString('sr-RS')} RSD</span>
             <p className={`stock-info ${(product.stockQuantity ?? 0) <= 0 ? 'out-of-stock' : ''}`}>
                 {(product.stockQuantity ?? 0) > 0
@@ -121,6 +182,59 @@ const ProductDetailsPage = () => {
             )}
 
         </div>
+
+        <div className="reviews-section">
+            <h2>Ocene i recenzije</h2>
+
+            {reviews.length === 0 ? (
+                <p className="no-reviews">Ovaj proizvod još nema recenzija. Budite prvi koji će ga oceniti!</p>
+            ) : (
+                <ul className="reviews-list">
+                    {reviews.map(review => (
+                        <li key={review.id}>
+                            <div className="review-header">
+                                <span className="review-stars">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
+                                <span className="review-author">{review.userName}</span>
+                                <span className="review-date">{new Date(review.createdAt).toLocaleDateString('sr-RS')}</span>
+                            </div>
+                            {review.content && <p className="review-content">{review.content}</p>}
+                            {(review.userId === currentUserId || isAdmin) && (
+                                <button className="review-delete-btn" onClick={() => handleReviewDelete(review.id)}>Obriši</button>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            )}
+
+            {isAuthenticated ? (
+                <form className="review-form" onSubmit={handleReviewSubmit}>
+                    <h3>Ostavi ocenu</h3>
+                    {reviewMessage && <p className="review-success">{reviewMessage}</p>}
+                    {reviewError && <p className="review-error">{reviewError}</p>}
+
+                    <label htmlFor="review-rating">Ocena:</label>
+                    <select id="review-rating" value={reviewRating} onChange={(e) => setReviewRating(e.target.value)}>
+                        <option value="5">5 - Odlično</option>
+                        <option value="4">4 - Vrlo dobro</option>
+                        <option value="3">3 - Dobro</option>
+                        <option value="2">2 - Loše</option>
+                        <option value="1">1 - Vrlo loše</option>
+                    </select>
+
+                    <label htmlFor="review-content">Komentar (opciono):</label>
+                    <textarea
+                        id="review-content"
+                        placeholder="Podelite svoje iskustvo sa ovim proizvodom..."
+                        value={reviewContent}
+                        onChange={(e) => setReviewContent(e.target.value)} />
+
+                    <button type="submit">Pošalji recenziju</button>
+                </form>
+            ) : (
+                <p className="review-login-hint">Prijavite se da biste ostavili ocenu i recenziju.</p>
+            )}
+        </div>
+        </>
     )
 
 }
