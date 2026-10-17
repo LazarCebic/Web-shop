@@ -29,6 +29,12 @@ public class OrderItemController {
         return ResponseEntity.ok(orderItemService.placeOrder(orderRequest));
     }
 
+    @PutMapping("/cancel/{orderId}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Response> cancelOrder(@PathVariable Long orderId){
+        return ResponseEntity.ok(orderItemService.cancelOwnPendingOrder(orderId));
+    }
+
     @PutMapping("/update-item-status/{orderItemId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> updateOrderItemStatus(@PathVariable Long orderItemId,  @RequestParam String status){

@@ -12,11 +12,7 @@ const PaymentCancelledPage = () => {
         const cancelOrder = async () => {
             if (!orderId) { setCancelling(false); return; }
             try {
-                const response = await ApiService.getOrderById(orderId);
-                const items = response.order?.orderItemList || [];
-                await Promise.all(
-                    items.map(item => ApiService.updateOrderitemStatus(item.id, 'CANCELLED'))
-                );
+                await ApiService.cancelOrder(orderId);
             } catch (e) {
             
             } finally {

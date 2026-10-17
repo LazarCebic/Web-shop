@@ -120,15 +120,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
         // ako se porudzbina otkazuje, vracamo kolicinu svih stavki na stanje
         if (newStatus == OrderStatus.CANCELLED && previousStatus != OrderStatus.CANCELLED) {
-            if (order.getOrderItemList() != null) {
-                for (OrderItem item : order.getOrderItemList()) {
-                    if (item.getProduct() != null) {
-                        int currentStock = item.getProduct().getStockQuantity() != null ? item.getProduct().getStockQuantity() : 0;
-                        item.getProduct().setStockQuantity(currentStock + item.getQuantity());
-                        productRepo.save(item.getProduct());
-                    }
-                }
-            }
+            restoreStock(order);
         }
 
         order.setStatus(newStatus);
@@ -137,6 +129,40 @@ public class OrderItemServiceImpl implements OrderItemService {
                 .status(200)
                 .message("Order status updated successfully")
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public Response cancelOwnPendingOrder(Long orderId) {
+        User user = userService.getLoginUser();
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("Order not found"));
+
+        if (order.getUser() == null || !order.getUser().getId().equals(user.getId())) {
+            throw new NotFoundException("Order not found");
+        }
+
+        if (order.getStatus() == OrderStatus.PENDING) {
+            restoreStock(order);
+            order.setStatus(OrderStatus.CANCELLED);
+            orderRepo.save(order);
+        }
+
+        return Response.builder()
+                .status(200)
+                .message("Order cancelled")
+                .build();
+    }
+
+    private void restoreStock(Order order) {
+        if (order.getOrderItemList() == null) return;
+        for (OrderItem item : order.getOrderItemList()) {
+            if (item.getProduct() != null) {
+                int currentStock = item.getProduct().getStockQuantity() != null ? item.getProduct().getStockQuantity() : 0;
+                item.getProduct().setStockQuantity(currentStock + item.getQuantity());
+                productRepo.save(item.getProduct());
+            }
+        }
     }
 
     @Override

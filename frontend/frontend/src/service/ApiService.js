@@ -155,6 +155,13 @@ export default class ApiService {
         return response.data;
     }
 
+    static async cancelOrder(orderId) {
+        const response = await axios.put(`${this.BASE_URL}/order/cancel/${orderId}`, {}, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
     static async getOrderById(orderId) {
         const response = await axios.get(`${this.BASE_URL}/order/${orderId}`, {
             headers: this.getHeader()
