@@ -55,7 +55,7 @@ const AdminPaymentsPage = () => {
                                     <ul className="payment-items-list">
                                         {payment.order?.orderItemList?.map(item => (
                                             <li key={item.id}>
-                                                {item.product?.name} — {item.quantity} x {item.product?.price?.toLocaleString('sr-RS')} RSD
+                                                {item.product?.name} — {item.quantity} x {(item.price / item.quantity)?.toLocaleString('sr-RS')} RSD = {item.price?.toLocaleString('sr-RS')} RSD
                                             </li>
                                         ))}
                                     </ul>

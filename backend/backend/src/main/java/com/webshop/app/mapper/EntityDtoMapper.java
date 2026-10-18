@@ -162,7 +162,7 @@ public class EntityDtoMapper {
             orderDto.setStatus(order.getStatus().name());
         }
         if (order.getUser() != null) {
-            orderDto.setUser(mapUserToDtoBasic(order.getUser()));
+            orderDto.setUser(mapUserToDtoPlusAddress(order.getUser()));
         }
         if (order.getOrderItemList() != null){
             orderDto.setOrderItemList(order.getOrderItemList()

@@ -88,6 +88,7 @@ const handleOrderDetails = (orderId) => {
                     <tr>
                         <th>ID porudžbine</th>
                         <th>Kupac</th>
+                        <th>Adresa</th>
                         <th>Status</th>
                         <th>Cena</th>
                         <th>Datum porudžbine</th>
@@ -100,6 +101,9 @@ const handleOrderDetails = (orderId) => {
                         <tr key={order.id}>
                             <td>{order.id}</td>
                             <td>{order.user?.name}</td>
+                            <td>{order.user?.address
+                                ? [order.user.address.street, order.user.address.city, order.user.address.zipCode].filter(Boolean).join(', ')
+                                : '-'}</td>
                             <td>{order.status}</td>
                             <td>{order.totalPrice?.toLocaleString('sr-RS')} RSD</td>
                             <td>{new Date(order.createdAt).toLocaleDateString()}</td>

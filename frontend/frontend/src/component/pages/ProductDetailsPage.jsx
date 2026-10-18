@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import ApiService from "../../service/ApiService";
 import '../../style/productDetailsPage.css';
@@ -9,6 +9,7 @@ const ProductDetailsPage = () => {
 
     const {productId} = useParams();
     const {cart, dispatch} = useCart();
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [stockMessage, setStockMessage] = useState('');
     const [pendingQty, setPendingQty] = useState(null); // null = nije odabrano, broj = bira se
@@ -84,6 +85,10 @@ const ProductDetailsPage = () => {
 
     
     const startSelecting = () => {
+        if (!ApiService.isAuthenticated()) {
+            navigate("/login");
+            return;
+        }
         if ((product.stockQuantity ?? 0) <= 0) {
             setStockMessage("Proizvod trenutno nije na stanju");
             return;

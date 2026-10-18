@@ -52,7 +52,9 @@ public class StripeService {
                 .putMetadata("orderId", String.valueOf(orderId));
 
         for (OrderItem item : order.getOrderItemList()) {
-            BigDecimal unitPrice = item.getProduct().getPrice();
+            // cena po komadu iz sacuvane stavke (cena u trenutku porudzbine), ne trenutna cena proizvoda
+            BigDecimal unitPrice = item.getPrice()
+                    .divide(BigDecimal.valueOf(item.getQuantity()), 2, RoundingMode.HALF_UP);
             // konverzija RSD -> EUR -> EUR centi (Stripe koristi najmanju jedinicu valute)
             long unitAmountInCents = unitPrice
                     .divide(RSD_TO_EUR_RATE, 2, RoundingMode.HALF_UP)

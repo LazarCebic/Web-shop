@@ -30,7 +30,7 @@ const AdminOrderDetailsPage = () => {
     const handleSubmitStatusChange = async () => {
         try {
             await ApiService.updateOrderitemStatus(order.id, selectedStatus);
-            setMessage('Status porudžbine je uspješno ažuriran');
+            setMessage('Status porudžbine je uspešno ažuriran');
             setTimeout(() => setMessage(''), 3000);
         } catch (error) {
             setMessage(error.response?.data?.message || error.message || 'Greška pri ažuriranju statusa');
@@ -80,7 +80,7 @@ const AdminOrderDetailsPage = () => {
                     </div>
                 )}
 
-                {/* Promjena statusa */}
+                {/* Promena statusa */}
                 <div className="status-change">
                     <h4>Promeni status</h4>
                     <select
@@ -108,7 +108,7 @@ const AdminOrderDetailsPage = () => {
                             <div className="info">
                                 <p><strong>Naziv:</strong> {item.product.name}</p>
                                 <p><strong>Opis:</strong> {item.product.description}</p>
-                                <p><strong>Cena po komadu:</strong> {item.product.price?.toLocaleString('sr-RS')} RSD</p>
+                                <p><strong>Cena po komadu:</strong> {(item.price / item.quantity)?.toLocaleString('sr-RS')} RSD</p>
                             </div>
                         </>
                     )}

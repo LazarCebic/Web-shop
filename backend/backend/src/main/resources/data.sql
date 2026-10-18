@@ -32,15 +32,15 @@ INSERT INTO products (id, name, description, image_url, price, stock_quantity, c
 (3,  'Sony WH-1000XM5',       'Bezicne slusalice sa najboljim noise cancellingom na trzistu',       'https://placehold.co/400x400?text=Sony+WH',      49999.00, 20, 1, NOW()),
 (4,  'Nike Air Force 1',      'Klasicna bela sportska obuca, dostupna u vise velicina',            'https://placehold.co/400x400?text=Nike+AF1',     18999.00, 30, 2, NOW()),
 (5,  'Levis 501 Jeans',       'Original slim fit farmerke, 100% pamuk, unisex model',               'https://placehold.co/400x400?text=Levis+501',     9999.00, 25, 2, NOW()),
-(6,  'Adidas Hoodie',         'Udobna dukserica s kapuljacom od flisa',                              'https://placehold.co/400x400?text=Adidas+Hood',   7499.00, 40, 2, NOW()),
+(6,  'Adidas Hoodie',         'Udobna dukserica sa kapuljacom od flisa',                              'https://placehold.co/400x400?text=Adidas+Hood',   7499.00, 40, 2, NOW()),
 (7,  'Cistoca i nered',       'Roman Harukija Murakamija, bestseler 2024. godine',                   'https://placehold.co/400x400?text=Murakami',        999.00, 50, 3, NOW()),
 (8,  'Atomske navike',        'Bestseler Dzejmsa Klira o izgradnji dobrih navika',                   'https://placehold.co/400x400?text=Atomic',         1299.00, 45, 3, NOW()),
 (9,  'Covek koji je gledao', 'Triler domaceg autora koji je osvojio nagradu za roman godine',     'https://placehold.co/400x400?text=Knjiga',          849.00, 60, 3, NOW()),
-(10, 'Fitnes bicikl Kettler', 'Sobni bicikl s 8 nivoa otpora, LCD ekranom, nosivost do 120kg',      'https://placehold.co/400x400?text=Bicikl',        54999.00,  5, 4, NOW()),
+(10, 'Fitnes bicikl Kettler', 'Sobni bicikl sa 8 nivoa otpora, LCD ekranom, nosivost do 120kg',      'https://placehold.co/400x400?text=Bicikl',        54999.00,  5, 4, NOW()),
 (11, 'Yoga prostirka',        'Antiklizajuca prostirka 183x61cm, debljine 6mm, ekoloski materijal', 'https://placehold.co/400x400?text=Yoga+Mat',       2999.00, 35, 4, NOW()),
-(12, 'Bucice set 20kg',       'Set bucica s gumiranom oblogom, 10 komada od 1kg do 10kg',           'https://placehold.co/400x400?text=Bucice',        14999.00, 10, 4, NOW()),
-(13, 'Philips Airfryer XXL',  'Friteza na topli zrak, 7.3L kapacitet, 13 programa',                 'https://placehold.co/400x400?text=Airfryer',      24999.00, 12, 5, NOW()),
-(14, 'Nespresso Vertuo Next', 'Aparat za kafu s centrifugalnom tehnologijom, 5 velicina soljice',   'https://placehold.co/400x400?text=Nespresso',     17999.00, 18, 5, NOW()),
+(12, 'Bucice set 20kg',       'Set bucica sa gumiranom oblogom, 10 komada od 1kg do 10kg',           'https://placehold.co/400x400?text=Bucice',        14999.00, 10, 4, NOW()),
+(13, 'Philips Airfryer XXL',  'Friteza na vreli vazduh, kapacitet 7.3L, 13 programa',                 'https://placehold.co/400x400?text=Airfryer',      24999.00, 12, 5, NOW()),
+(14, 'Nespresso Vertuo Next', 'Aparat za kafu sa centrifugalnom tehnologijom, 5 velicina soljice',   'https://placehold.co/400x400?text=Nespresso',     17999.00, 18, 5, NOW()),
 (15, 'Dyson V15 Detect',      'Bezicni usisivac s laserskim otkrivanjem prasine, 60 min autonomije','https://placehold.co/400x400?text=Dyson+V15',     79999.00,  6, 5, NOW());
 
 -- ADRESE

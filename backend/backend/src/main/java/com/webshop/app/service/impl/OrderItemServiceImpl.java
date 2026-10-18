@@ -85,9 +85,8 @@ public class OrderItemServiceImpl implements OrderItemService {
         }).collect(Collectors.toList());
 
         //calculate the total price
-        BigDecimal totalPrice = orderRequest.getTotalPrice() != null && orderRequest.getTotalPrice().compareTo(BigDecimal.ZERO) > 0
-                ? orderRequest.getTotalPrice()
-                : orderItems.stream().map(OrderItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+        // ukupna cena se uvek racuna na serveru iz stavki - cena sa klijenta (korpa u browseru) moze biti zastarela
+        BigDecimal totalPrice = orderItems.stream().map(OrderItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 
         //create order entity
         Order order = new Order();

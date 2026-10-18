@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ApiService from "../../service/ApiService";
 import { useCart } from "../context/CartContext";
 import '../../style/productList.css';
 
 
 const ProductList = ({products}) => {
     const {cart, dispatch} = useCart();
+    const navigate = useNavigate();
     // pending: { [productId]: quantity } — čuva količinu pre nego što korisnik potvrdi
     const [pending, setPending] = useState({});
-
-    const incrementItem = (product) => {
-        const cartItem = cart.find(item => item.id === product.id);
-        if (cartItem && cartItem.quantity > 1) {
-            dispatch({type: 'DECREMENT_ITEM', payload: product});
-        } else {
-            dispatch({type: 'REMOVE_ITEM', payload: product});
-        }
-    }
 
     const decrementItem = (product) => {
         const cartItem = cart.find(item => item.id === product.id);
@@ -83,7 +76,13 @@ const ProductList = ({products}) => {
                                 // Početno stanje
                                 <button
                                     disabled={(product.stockQuantity ?? 0) <= 0}
-                                    onClick={() => setPending(prev => ({...prev, [product.id]: 1}))}
+                                    onClick={() => {
+                                        if (!ApiService.isAuthenticated()) {
+                                            navigate('/login');
+                                            return;
+                                        }
+                                        setPending(prev => ({...prev, [product.id]: 1}));
+                                    }}
                                 >
                                     {(product.stockQuantity ?? 0) <= 0 ? 'Nema na stanju' : 'Kupi'}
                                 </button>
